@@ -8,7 +8,7 @@ sudo apt-get install -y oracle-java8-set-default
 JAVA_HOME=/usr/lib/jvm/java-8-oracle
 JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 
-sudo apt-get install -y php5-cli php5-curl php5-mysql
+sudo apt-get install -y php5-cli php5-curl php5-mysql firefox
 
 curl -sS https://getcomposer.org/installer | php
 php composer.phar require facebook/webdriver
