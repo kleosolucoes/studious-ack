@@ -11,7 +11,7 @@ JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 sudo apt-get install -y php5-cli php5-curl php5-mysql firefox
 
 curl -sS https://getcomposer.org/installer | php
-sudo php composer.phar require facebook/webdriver
+php composer.phar require facebook/webdriver
 
 sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.16.1/geckodriver-v0.16.1-linux64.tar.gz
 sudo sh -c 'tar -x geckodriver -zf geckodriver-v0.16.1-linux64.tar.gz -O > /usr/bin/geckodriver'
