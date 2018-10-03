@@ -45,75 +45,81 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 
 		$idEleitor = $elemento->getText();
 		echo "\n idEleitor: ".$idEleitor;
-		sleep(rand(3,4));
 
-		echo "\n clicando no botao";
-		$elemento->click();
+		$idParaVerificar = 0;
+		if($argv[2] && $idParaVerificar = $argv[2]);
 
-		$handles = $driver->getWindowHandles();
-		$driver->switchTo()->window($handles[1]);
-		echo "\n esperando 5";
-		sleep(rand(5,7));
-		echo "\n Botao whatsapp 1";
-		$botaoEnviar1 = $driver->findElement(WebDriverBy::xpath("//*[@id='action-button']"));
-		$botaoEnviar1->click();
+		if($idEleitor >= $idParaVerificar){
+			sleep(rand(3,4));
 
-		echo "\n esperando 10";
-		sleep(rand(9,12));
+			echo "\n clicando no botao";
+			$elemento->click();
 
-		$mensagemEnviada = true;
-		try{	
-			$driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/span[3]/div/span/div/div/div/div/div/div[2]/div'));
-			$mensagemEnviada = false;
-		} catch(Exception $e){
-			$anexar = $driver->findElement(WebDriverBy::xpath('//*[@id="main"]/header/div[3]/div/div[2]/div'));
-			$anexar->click();
-			$inputFile = $driver->findElement(WebDriverBy::xpath('//*[@type="file"]'));
-			$inputFile->setFileDetector(new LocalFileDetector());
-			$remote_image = rand(1,3) . '.jpg';
-			$inputFile->sendKeys($remote_image);
-			sleep(rand(1,4));
-			//echo "\n apertando enter";
-			//$botaoEnviar2 = $driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/div/div[1]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div'));
-			//$botaoEnviar2->click();
-			//sleep(rand(1,3));
-			//$driver->findElement(WebDriverBy::xpath('//*[@id="main"]/footer/div[1]/div[3]/button'))->click();
-			//sleep(rand(1,3));
+			$handles = $driver->getWindowHandles();
+			$driver->switchTo()->window($handles[1]);
+			echo "\n esperando 5";
+			sleep(rand(5,7));
+			echo "\n Botao whatsapp 1";
+			$botaoEnviar1 = $driver->findElement(WebDriverBy::xpath("//*[@id='action-button']"));
+			$botaoEnviar1->click();
+
+			echo "\n esperando 10";
+			sleep(rand(9,12));
+
+			$mensagemEnviada = true;
+			try{	
+				$driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/span[3]/div/span/div/div/div/div/div/div[2]/div'));
+				$mensagemEnviada = false;
+			} catch(Exception $e){
+				$anexar = $driver->findElement(WebDriverBy::xpath('//*[@id="main"]/header/div[3]/div/div[2]/div'));
+				$anexar->click();
+				$inputFile = $driver->findElement(WebDriverBy::xpath('//*[@type="file"]'));
+				$inputFile->setFileDetector(new LocalFileDetector());
+				$remote_image = rand(1,3) . '.jpg';
+				$inputFile->sendKeys($remote_image);
+				sleep(rand(1,4));
+				//echo "\n apertando enter";
+				//$botaoEnviar2 = $driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/div/div[1]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div'));
+				//$botaoEnviar2->click();
+				//sleep(rand(1,3));
+				//$driver->findElement(WebDriverBy::xpath('//*[@id="main"]/footer/div[1]/div[3]/button'))->click();
+				//sleep(rand(1,3));
+			}
+			$driver->close();
+
+			$handles = $driver->getWindowHandles();
+			$driver->switchTo()->window($handles[1]);
+			$driver->close();
+
+			sleep(rand(0,2));
+			$driver->switchTo()->window($handles[0]);
+
+			$labelBotao = '';
+			if($mensagemEnviada){
+				$labelBotao = 'botaoEnviado';
+			}else{
+				$labelBotao = 'botaoInvalido';
+			}
+			try{
+				$driver->findElement(WebDriverBy::xpath("//*[@id='{$labelBotao}{$idEleitor}']"))->click();
+			}catch(Exception $e){
+				echo "\n\n Exception: ".$e->getMessage();
+			}
+
+			if($contador % 40 === 0){
+				echo "\n #######################################################################";
+				echo "\n #######################################################################";
+				echo "\n #######################################################################";
+				echo "\n #######################################################################";
+				echo "\n ESTOU ESPERANDO 10 MINUTOS";
+				echo "\n #######################################################################";
+				echo "\n #######################################################################";
+				echo "\n #######################################################################";
+				echo "\n #######################################################################";
+				sleep(10*60);
+			}
+			$contador++;
 		}
-		$driver->close();
-
-		$handles = $driver->getWindowHandles();
-		$driver->switchTo()->window($handles[1]);
-		$driver->close();
-
-		sleep(rand(0,2));
-		$driver->switchTo()->window($handles[0]);
-
-		$labelBotao = '';
-		if($mensagemEnviada){
-			$labelBotao = 'botaoEnviado';
-		}else{
-			$labelBotao = 'botaoInvalido';
-		}
-		try{
-			$driver->findElement(WebDriverBy::xpath("//*[@id='{$labelBotao}{$idEleitor}']"))->click();
-		}catch(Exception $e){
-			echo "\n\n Exception: ".$e->getMessage();
-		}
-
-		if($contador % 40 === 0){
-			echo "\n #######################################################################";
-			echo "\n #######################################################################";
-			echo "\n #######################################################################";
-			echo "\n #######################################################################";
-			echo "\n ESTOU ESPERANDO 5 MINUTOS";
-			echo "\n #######################################################################";
-			echo "\n #######################################################################";
-			echo "\n #######################################################################";
-			echo "\n #######################################################################";
-			sleep(5*60);
-		}
-		$contador++;
 	}
 }
 $driver->quit();
