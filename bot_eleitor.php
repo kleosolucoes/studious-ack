@@ -14,23 +14,13 @@ $capabilities = DesiredCapabilities::chrome();
 $capabilities->setCapability("webdriver.load.strategy", "unstable");
 $driver = RemoteWebDriver::create($host, $capabilities, 60000, 120000);
 
+$driver->get('https://web.whatsapp.com/');
+sleep(8);
+
 $bloco = 0;
 if($argv[2] && $bloco = $argv[2]);
 $driver->get('https://circuitodavisaonovo.com.br/deployEleitor/'.$bloco);
 
-sleep(3);
-$driver->getKeyboard()->sendKeys(
-	array(WebDriverKeys::CONTROL, 't')
-);
-
-$handles = $driver->getWindowHandles();
-$driver->switchTo()->window($handles[1]);
-
-$driver->get('https://web.whatsapp.com/');
-sleep(8);
-$driver->close();
-
-$driver->switchTo()->window($handles[0]);
 if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio"))){
 	echo "\n Encontrou tantos botoes: ".count($elementos);
 	$contador = 1;
@@ -86,10 +76,6 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 			}
 			$driver->close();
 
-			$handles = $driver->getWindowHandles();
-			$driver->switchTo()->window($handles[1]);
-			$driver->close();
-
 			sleep(rand(0,2));
 			$driver->switchTo()->window($handles[0]);
 
@@ -116,6 +102,9 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 				echo "\n #######################################################################";
 				echo "\n #######################################################################";
 				sleep(10*60);
+			}
+			if($contador === 4){
+				break;
 			}
 			$contador++;
 		}
