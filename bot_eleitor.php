@@ -15,7 +15,7 @@ $capabilities->setCapability("webdriver.load.strategy", "unstable");
 $driver = RemoteWebDriver::create($host, $capabilities, 60000, 120000);
 
 $bloco = 0;
-if($bloco = $argv[1]);
+if($argv[1] && $bloco = $argv[1]);
 $driver->get('https://circuitodavisaonovo.com.br/deployEleitor/'.$bloco);
 
 sleep(2);
@@ -35,14 +35,6 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 	echo "\n Encontrou tantos botoes: ".count($elementos);
 	$contador = 1;
 	foreach($elementos as $elemento){
-		$coordenadaX = $elemento->getCoordinates()->onPage()->getX();
-		$coordenadaY = $elemento->getCoordinates()->onPage()->getY();
-		try{
-			$driver->executeScript("window.scrollTo(".$coordenadaX.", ".$coordenadaY.");");
-		}catch(Exception $e){
-			echo "\n\n Error executeScript: ".$e->getMessage();
-		}
-
 		$idEleitor = $elemento->getText();
 		echo "\n idEleitor: ".$idEleitor;
 
@@ -50,6 +42,13 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 		if($argv[2] && $idParaVerificar = $argv[2]);
 
 		if($idEleitor >= $idParaVerificar){
+			$coordenadaX = $elemento->getCoordinates()->onPage()->getX();
+			$coordenadaY = $elemento->getCoordinates()->onPage()->getY();
+			try{
+				$driver->executeScript("window.scrollTo(".$coordenadaX.", ".$coordenadaY.");");
+			}catch(Exception $e){
+				echo "\n\n Error executeScript: ".$e->getMessage();
+			}
 			sleep(rand(3,4));
 
 			echo "\n clicando no botao";
