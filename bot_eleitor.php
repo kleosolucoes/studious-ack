@@ -9,13 +9,13 @@ use Exception;
 
 require_once('vendor/autoload.php');
 
-$host = 'http://localhost:4444/wd/hub';
+$host = 'http://localhost:'.$argv[1].'/wd/hub';
 $capabilities = DesiredCapabilities::chrome();
 $capabilities->setCapability("webdriver.load.strategy", "unstable");
 $driver = RemoteWebDriver::create($host, $capabilities, 60000, 120000);
 
 $bloco = 0;
-if($argv[1] && $bloco = $argv[1]);
+if($argv[2] && $bloco = $argv[2]);
 $driver->get('https://circuitodavisaonovo.com.br/deployEleitor/'.$bloco);
 
 sleep(3);
@@ -39,7 +39,7 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 		echo "\n idEleitor: ".$idEleitor;
 
 		$idParaVerificar = 0;
-		if($argv[2] && $idParaVerificar = $argv[2]);
+		if($argv[3] && $idParaVerificar = $argv[3]);
 
 		if($idEleitor >= $idParaVerificar){
 			$coordenadaX = $elemento->getCoordinates()->onPage()->getX();
