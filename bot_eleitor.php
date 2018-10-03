@@ -27,7 +27,7 @@ $handles = $driver->getWindowHandles();
 $driver->switchTo()->window($handles[1]);
 
 $driver->get('https://web.whatsapp.com/');
-sleep(6);
+sleep(8);
 $driver->close();
 
 $driver->switchTo()->window($handles[0]);
