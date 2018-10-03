@@ -18,7 +18,7 @@ $bloco = 0;
 if($argv[1] && $bloco = $argv[1]);
 $driver->get('https://circuitodavisaonovo.com.br/deployEleitor/'.$bloco);
 
-sleep(2);
+sleep(3);
 $driver->getKeyboard()->sendKeys(
 	array(WebDriverKeys::CONTROL, 't')
 );
