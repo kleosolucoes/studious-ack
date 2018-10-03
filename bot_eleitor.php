@@ -74,15 +74,15 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 				$anexar->click();
 				$inputFile = $driver->findElement(WebDriverBy::xpath('//*[@type="file"]'));
 				$inputFile->setFileDetector(new LocalFileDetector());
-				$remote_image = rand(1,3) . '.jpg';
+				$remote_image = rand(1,5) . '.jpg';
 				$inputFile->sendKeys($remote_image);
 				sleep(rand(1,4));
-				//echo "\n apertando enter";
-				//$botaoEnviar2 = $driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/div/div[1]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div'));
-				//$botaoEnviar2->click();
-				//sleep(rand(1,3));
-				//$driver->findElement(WebDriverBy::xpath('//*[@id="main"]/footer/div[1]/div[3]/button'))->click();
-				//sleep(rand(1,3));
+				echo "\n apertando enter";
+				$botaoEnviar2 = $driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/div/div[1]/div[2]/span/div/span/div/div/div[2]/span[2]/div/div'));
+				$botaoEnviar2->click();
+				sleep(rand(1,3));
+				$driver->findElement(WebDriverBy::xpath('//*[@id="main"]/footer/div[1]/div[3]/button'))->click();
+				sleep(rand(1,3));
 			}
 			$driver->close();
 
