@@ -103,9 +103,6 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 				echo "\n #######################################################################";
 				sleep(10*60);
 			}
-			if($contador === 4){
-				break;
-			}
 			$contador++;
 		}
 	}
