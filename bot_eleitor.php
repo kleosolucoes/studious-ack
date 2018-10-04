@@ -55,6 +55,10 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 			echo "\n esperando 10";
 			sleep(rand(9,12));
 
+			$driver->wait(15, 1000)->until(
+				WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::xpath('//*[@id="main"]/header/div[3]/div/div[2]/div'))
+			);
+
 			$mensagemEnviada = true;
 			try{	
 				$driver->findElement(WebDriverBy::xpath('//*[@id="app"]/div/span[3]/div/span/div/div/div/div/div/div[2]/div'));
