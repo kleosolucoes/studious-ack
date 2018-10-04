@@ -76,7 +76,7 @@ if($elementos = $driver->findElements(WebDriverBy::cssSelector("a.botaoEnvio")))
 				$botaoEnviar2->click();
 				sleep(rand(1,3));
 				$driver->findElement(WebDriverBy::xpath('//*[@id="main"]/footer/div[1]/div[3]/button'))->click();
-				sleep(rand(1,3));
+				sleep(rand(3,5));
 			}
 			$driver->close();
 
